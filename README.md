@@ -1,0 +1,1 @@
+# istqb-test-design-techniques
