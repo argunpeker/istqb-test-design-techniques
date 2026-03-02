@@ -18,13 +18,13 @@ The system must allow users to log in only if:
 Validate all combinations of username/password and 2FA input to ensure correct login behavior.
 
 ### Conditions
-| Condition ID | Condition Description                    |
+| Condition ID | Condition Description                     |
 |--------------|------------------------------------------|
 | C1           | Username & Password correct? (Yes/No)    |
 | C2           | 2FA code valid? (Yes/No)                 |
 
 ### Actions
-| Action ID | Action Description      |
+| Action ID | Action Description       |
 |-----------|-------------------------|
 | A1        | Login allowed           |
 | A2        | Login rejected          |
@@ -35,8 +35,9 @@ Validate all combinations of username/password and 2FA input to ensure correct l
 |------|----|----|--------|
 | R1   | Y  | Y  | A1     |
 | R2   | Y  | N  | A2     |
-| R3   | N  | Y  | A2     |
-| R4   | N  | N  | A2     |
+| R3   | N  | X  | A2     |
+
+> Note: X = don't care (C2 value does not affect the outcome when C1 = N)
 
 ### Test Cases
 
@@ -48,5 +49,6 @@ Validate all combinations of username/password and 2FA input to ensure correct l
 | TC04      | N, N               | Login rejected |
 
 ### Coverage
-- Covers all combinations of conditions.
-- Ensures that the login system correctly handles valid and invalid username/password with/without valid 2FA.
+- Covers all combinations of conditions where the outcome changes.
+- Reduces redundant rules by using “don’t care” for C2 when C1 = N.
+- Ensures login system correctly handles valid and invalid username/password with/without valid 2FA.
